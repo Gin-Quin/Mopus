@@ -5,7 +5,7 @@ In comparison with Webpack, Mopus is *extremely* lightweight and considerably fa
 
 Mopus has easy solutions for HMR (*hot module resolution*) and custom actions on module loading.
 
-[(See the full documentation here)](https://github.com/Lepzulnag/Mopus)
+[See the full documentation here](https://github.com/Lepzulnag/Mopus)
 
 
 ## Installation
@@ -71,4 +71,4 @@ const mopus = new Mopus({
 let str = mopus.compile().myProject
 ```
 
-[(See the full documentation here)](https://github.com/Lepzulnag/Mopus)
+[See the full documentation here](https://github.com/Lepzulnag/Mopus)
