@@ -5,7 +5,7 @@ In comparison with Webpack, Mopus is *extremely* lightweight and considerably fa
 
 Mopus has easy solutions for HMR (*hot module resolution*) and custom actions on module loading.
 
-_Be aware Mopus is still in beta version. If you find any bug, let me know._
+Mopus is still in beta version. If you find any bug, let me know ☺.
 
 
 ## Installation
@@ -36,7 +36,7 @@ You can pass options :
 
 will build using the `main.js` file as an entry point, and will write the result into the file `output.js`.
 
-See the [configuration](#config) part for all the options.
+You can pass any option (except object and array options) by adding the prefix `--` before the option name (example: `--output`). See the [configuration](#config) section for the list of all the options available.
 
 
 ### Using from a Node program
@@ -176,8 +176,8 @@ See also the [project options](#project).
 |-----------------------------|-----|---------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | root | -r | String | '' | The folder used as root. All modules paths will be resolved relatively to this. |
 | projects |  | Array | [] | If you need different configurations that share some files, create a new project for every configuration. |
-| rules |  | Object | {} | This option let you define custom actions on module loading. See the [rules](#rules) section for more informations. |
-| folderRules |  | Object | {} | This option let you define custom actions on loading folders as modules. |
+| rules |  | Object | {} | This option let you define the action to execute when a file is  `import`-ed or `require`-d. See the [rules](#rules) section for more informations. |
+| folderRules |  | Object | {} | This option let you define the right action when a folder is `import`-ed or `require`-d. |
 | allowDynamicRequires |  | Boolean | true | Set to false if you don't want to allow `require` with non-constant values. |
 | externalModules |  | Array | null | List of module names that won't be bundled. |
 | allowImportExportEverywhere |  | Boolean | false | Set to true if you want to be able to use `import` and `export` statements anywhere in the code. |
@@ -227,4 +227,4 @@ Comments are automatically removed by Mopus. Most of the times they are not need
 Nonetheless there are cases when keeping comments is useful, so I plan to add support for comments.
 
 ### Sourcemaps
-Mopus does not produce sourcemaps yet. I don't plan to add sourcemaps support before the [Javascript class fields proposal](https://github.com/tc39/proposal-class-fields) is live, because the most complex part for generating sourcemaps is to deal with class fields transformations.
+Mopus does not produce sourcemaps yet. I don't plan to add sourcemaps support before the [Javascript class fields proposal](https://github.com/tc39/proposal-class-fields) is live, because the most complex part about generating sourcemaps is to deal with class fields transformation.
