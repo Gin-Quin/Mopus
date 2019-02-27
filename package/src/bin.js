@@ -57,7 +57,6 @@ try {
 	let lastArg = 'entry'
 	let firstEntry = true
 	const fullArg = {
-		'n': 'name',
 		'i': 'input',
 		'o': 'output',
 		're': 'processRequires',
@@ -69,6 +68,7 @@ try {
 		'l': 'logs',
 		't': 'target',
 		'w': 'wrap',
+		'f': 'format',
 	}
 
 	// let's loop throught the arguments

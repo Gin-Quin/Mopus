@@ -8,13 +8,13 @@ const fs = require('fs')
 const {clk, clm} = require('./utils')
 
 const defaultProject = {
-	name: 'bundle',
+	output: 'bundle',
 	entry: 'src',
 	entryDir: '',
 	entryAsModule: true,  // if false, then entries scope are accessibles from other modules
 	input: '',  // instead of having files as entries, we can have an input source
 	outputDir: '',
-	output: 'file',  // 'file'|'string'|'buffer'
+	outputType: 'file',  // 'file'|'string'|'buffer'
 	processRequires: true,
 	processImports: true,
 	processExports: true,
@@ -58,19 +58,21 @@ function wrapIIFE(str, args='') {
 * A project contains different config options, plus some methods, like toString.
 */
 class Project {
-	constructor(mopus, name, projectOptions) {
+	constructor(mopus, projectOptions) {
 		Object.assign(this, defaultProject)
 		for (let prop in this) {
 			if (prop in mopus.options)
 				this[prop] = mopus.options[prop]
 		}
 		Object.assign(this, projectOptions)
-		if (name)
-			this.name = name
 		if (!Array.isArray(this.entry))  // we make sure it's an array
 			this.entry = (this.entry ? [this.entry] : [])
 		if (!this.entry.length && !this.input)
 			this.entry.push('src')
+
+		if (!this.output)
+			throw "The output option of a project must not be empty"
+
 		this.mopus = mopus
 		this.modules = mopus.modules
 
@@ -193,8 +195,8 @@ class Project {
 
 		// we write the output file
 		let fileName = null
-		if (this.output == 'file') {
-			fileName = this.name
+		if (this.outputType == 'file') {
+			fileName = this.output
 			if (!fileName.endsWith('.js'))
 				fileName += '.js'
 
@@ -220,7 +222,7 @@ class Project {
 
 		// we log the output
 		if (this.mopus.options.logs && this.mopus.options.logOutput) {
-			let msg = clk.green.bold('> ')+clk.bold(fileName||this.name)+' '
+			let msg = clk.green.bold('> ')+clk.bold(fileName||this.output)+' '
 			if (this.minify)
 				msg += clk.detail('(minified) ')
 
@@ -236,7 +238,7 @@ class Project {
 
 
 		// we return the result
-		return this.output == 'buffer' ? Buffer.from(result) : result
+		return this.outputType == 'buffer' ? Buffer.from(result) : result
 	}
 
 }

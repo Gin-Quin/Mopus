@@ -20,9 +20,10 @@ const defaultRules = {
 
 const globalOptions = {
 	root: '',
-	folderRules: {},
+	projects: [],  // the the list of projects
 	rules: {},
-	project: 'bundle',  // the name of the project / the list of projects
+	folderRules: {},
+
 	allowDynamicRequires: true,
 	externalModules: null,  // list of modules not to be included in the bundle
 	allowImportExportEverywhere: false,  // by default, only top-level import and exports allowed
@@ -97,11 +98,13 @@ class Mopus {
 
 
 			// we create a shortcut to access the projects
-			if (!options.project)
-				options.project = 'bundle'
-			if (typeof options.project != 'object')
-				options.project = {[options.project]: {}}
-			this.projects = options.project
+			if (!options.projects)
+				options.projects = []
+			if (!Array.isArray(options.projects))
+				throw "The projects option should be an array or null"
+			if (!options.projects.length)
+				options.projects.push({})
+			this.projects = options.projects
 
 
 			// we transform the externalModules into a Set
@@ -110,9 +113,14 @@ class Mopus {
 			options.externalModules = new Set(options.externalModules)
 
 			// for every project we read dependent modules
-			for (let name in this.projects) {
-				let project = new Project(this, name, this.projects[name])
-				this.projects[name] = project
+			let index = 0
+
+			for (let project of this.projects) {
+				project = new Project(this, project)
+				if (project.output in this.projects)
+					throw "Two projects cannot have the same output value"
+				this.projects[index++] = project
+				// this.projects[project.output] = project
 
 				// for every entry file of the project, we add the module
 				// (this will also add sub-modules)
@@ -409,10 +417,8 @@ class Mopus {
 
 
 		let result = {}
-		let n = 0
-		for (let name in this.projects)
-			result[name] = this.projects[name].compile(), n++
-
+		for (let project of this.projects)
+			result[project.output] = project.compile()
 
 		if (this.options.logs) {
 			console.log(this.logs.output.join('\n'))
