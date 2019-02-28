@@ -1,6 +1,6 @@
 {
   "name": "mopus",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A bundler similar to webpack but extremely light and fast. Separate your project into modules, add dependencies in your files using 'import', 'require' and 'export' keywords, and compile it into one file. Easy customization.",
   "main": "./mopus.js",
   "scripts": {

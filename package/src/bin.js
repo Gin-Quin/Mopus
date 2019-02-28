@@ -13,7 +13,7 @@ if (process.argv[2] == '-h' || process.argv[2] == '--help') {
 
 const fs = require('fs')
 
-if (process.argv[2] == '-v') {
+if (process.argv[2] == '-v' || process.argv[2] == '--version') {
 	const path = require('path').resolve
 	let pack = JSON.parse(fs.readFileSync(path(__dirname, '../package.json')))
 	console.log(clk.magenta.bold('Møpus ')+clk.yellowBright(pack.version))
