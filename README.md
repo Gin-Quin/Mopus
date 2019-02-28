@@ -28,6 +28,8 @@ Like Webpack, Mopus uses a configuration file `mopus.json`. If the file is not p
 If you've installed Mopus globally, make sure your global node modules path is added to your environment variables.
 To check if you can access mopus CLI, write in your console : `mopus -v`.
 
+If you've installed Mopus locally, use npx : `npx mopus -v`.
+
 To build your project, go to the folder with the `mopus.json` file and execute : `mopus`.
 
 You can pass options :
@@ -65,8 +67,8 @@ If you don't want the output to be written in a file but instead get the result 
 const Mopus = require('mopus')
 const mopus = new Mopus({
 	entry: 'main.js',
-	outputType: 'string',  // 'file' | 'string' | 'buffer'. Default is 'file'.
 	output: 'myProject',
+	outputType: 'string',  // 'file' | 'string' | 'buffer'. Default is 'file'.
 })
 let str = mopus.compile().myProject
 ```
@@ -75,7 +77,7 @@ let str = mopus.compile().myProject
 ## Importing modules
 You can import a module using the `import` statement or the usual `require` function (see [here](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import) to learn how to use `import`).
 
-Let's suppose we have the two files `main.js` and `Zabu.js` (in the same folder) :
+Let's suppose we have two files `main.js` and `Zabu.js` in the same folder :
 
 ```javascript
 // main.js
@@ -88,7 +90,7 @@ new Zabu
 export {Zabu}
 class Zabu {
 	constructor() {
-		console.log('Zabu!');
+		console.log('Zabu!')
 	}
 }
 ```
@@ -101,7 +103,7 @@ Then we should see the message `Zabu!` appearing.
 
 ## Exporting values
 
-For a better understanding, I advice to put the export statements should be at the very top of your file - even before the imports.
+For a better understanding, I advice to put the export statements at the very top of your file - even before the imports.
 
 See [here](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Instructions/export) to learn how to use the export statement.
 
@@ -109,32 +111,30 @@ See [here](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Instructi
 ## Having multiple projects
 Mopus is perfect when you need to generate several bundles which share common files but use different configurations.
 
-For exempe, lets say you need to compile two projects, the second one being a minified version of the first one :
+For example, you may need to compile two projects, the second one being a minified version of the first one :
 
-```javascript
-const Mopus = require('mopus')
-const mopus = new Mopus({
-	entry: 'main.js',  // this is a global option and will be used by every project (if not overwritten)
-	projects: [
-		// normal bundle
+```json
+// mopus.json
+{
+	"entry": "main.js",
+	"projects": [
 		{
-			output: 'bundle.js',
+			"output": "bundle.js"
 		},
-		// minified bunlde
 		{
-			output: 'bundle.min.js',
-			minify: true,
-		},
+			"output": "bundle.min.js",
+			"minify": true
+		}
 	]
-	output: 'myProject',
-})
-mopus.compile()  // this will create the two files 'bundle.js' and 'bundle.min.js'
+}
 ```
+
+Then, running `mopus` on the CLI will output two files : `bundle.js` and `bundle.min.js`.
 
 If files are shared between different projects, they will only be parsed once by mopus.
 
 ## Class fields
-[Class fields](https://github.com/tc39/proposal-class-fields) is a Javascript feature that will eventually come. For now, without a compiler like Babel or Typescript we need to declare all of our class fields in the constructor, preceded by a `this.`
+[Class fields](https://github.com/tc39/proposal-class-fields) is a Javascript feature that will eventually come. For now, without a compiler like Babel or Typescript we need to declare all of our class fields in the constructor, preceded by a `this`.
 
 Mopus naturally transform class fields into standard javascript. The following file :
 
@@ -216,7 +216,7 @@ Project options can be used specifically in a project object, **or** as a global
 ## Additional notes
 
 ### Speed and minification
-Mopus internally uses the excellent [Butternut](https://www.npmjs.com/package/butternut) minifier from Richard Harris. Butternut is amongst the fastest minifiers, still minifying the output slow down the whole process. In the future, Mopus will closely integrates minification to its core to make it as light as a breeze.
+Mopus internally uses the excellent [Butternut](https://www.npmjs.com/package/butternut) minifier by Richard Harris. Butternut is amongst the fastest minifiers, still minifying the output slow down the whole process. In the future, Mopus will closely integrates minification to its core to make it as light as a breeze.
 
 If you care about achieving maximum speed, don't minify your project and disable logs.
 
