@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
 * This file is used when Mopus is called from the CLI
 */
