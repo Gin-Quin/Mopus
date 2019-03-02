@@ -14,7 +14,7 @@ const {isFile, isGlobalModule, clk, clm, locationError} = require('./utils.js')
 const defaultRules = {
 	module: /\.(js|mjs|ejs|ts)$/,
 	text: /\.(html|txt|md|text)$/,
-	asset: /\.(css|styl|less|scss|sass|svg|png|jpg|jpeg|otf|ttf)$/,
+	asset: /\.(css|styl|less|scss|sass|svg|png|jpg|jpeg|woff|woff2|otf|ttf)$/,
 }
 
 
@@ -63,8 +63,6 @@ class Mopus {
 		}
 
 		try {
-			let configFile = {}
-
 			if (options.logs && options.logTimers)
 				console.time('Creating dependency tree')
 
