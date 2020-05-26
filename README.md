@@ -1,4 +1,4 @@
-# -- DEPRECATED
+# Deprecated
 
 You can use Mopus for curiosity if you are interested in module bundlers but I do not continue Mopus development.
 
