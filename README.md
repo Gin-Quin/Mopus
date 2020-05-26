@@ -1,11 +1,16 @@
+# -- DEPRECATED
+
+You can use Mopus for curiosity if you are interested in module bundlers but I do not continue Mopus development.
+
+If you are looking for an excellent module bundler fine and working, the best one (in my opinion) is [Rollup](https://rollupjs.org/guide/en/). You can also look at **Webpack** (a standard choice, but not my preference the produced code is not as clean as Rollup's output) or **Parcel** (fast for very big projects but also extremely heavy), or **Pax** (super super fast because coded in Rust, but not as flexible as the others).
+
+
 # Mopus
 Mopus is an open-source module bundler in the way of webpack, built specifically for the needs of another library : Nixy.
 
 In comparison with Webpack, Mopus is *extremely* lightweight and considerably faster for small projects. Compiling your project becomes a matter of milliseconds.
 
 Mopus has easy solutions for HMR (*hot module resolution*) and custom actions on module loading.
-
-Mopus is still in beta version. If you find any bug, let me know ☺.
 
 
 ## Installation
